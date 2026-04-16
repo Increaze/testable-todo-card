@@ -47,9 +47,7 @@ function updateTimeRemaining() {
   card.classList.toggle('overdue', isOverdue);
 }
 
-/* =========================
-   STATUS + CHECKBOX SYNC
-========================= */
+
 checkbox.addEventListener('change', () => {
   const done = checkbox.checked;
 
