@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Card</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <article class="profile-card" data-testid="test-profile-card">
+        <div class="profile-card__layout">
+          <figure class="profile-card__figure">
+            <img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43d?auto=format&fit=crop&w=600&q=80"
+              alt="Portrait of Increase Uwadiale"
+              class="profile-card__avatar"
+              data-testid="test-user-avatar"
+            />
+          </figure>
+
+          <div class="profile-card__content">
+            <header class="profile-card__header">
+              <h1 class="profile-card__name" data-testid="test-user-name">
+                Increase Uwadiale
+              </h1>
+              <p class="profile-card__bio" data-testid="test-user-bio">
+                Frontend engineer focused on building clean, accessible, and
+                performant user interfaces with strong attention to detail and
+                user experience.
+              </p>
+            </header>
+
+            <section class="profile-card__meta" aria-label="Current time">
+              <p class="profile-card__time-label">Current time in milliseconds</p>
+              <p
+                class="profile-card__time"
+                data-testid="test-user-time"
+                aria-live="polite"
+              >
+                0
+              </p>
+            </section>
+
+            <nav
+              class="profile-card__socials"
+              data-testid="test-user-social-links"
+              aria-label="Social links"
+            >
+              <a
+                href="https://github.com/Increaze"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="test-user-social-github"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="test-user-social-linkedin"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="test-user-social-twitter"
+              >
+                Twitter
+              </a>
+            </nav>
+
+            <div class="profile-card__lists">
+              <section class="profile-card__section" aria-labelledby="hobbies-heading">
+                <h2 id="hobbies-heading" class="profile-card__section-title">
+                  Hobbies
+                </h2>
+                <ul class="profile-card__list" data-testid="test-user-hobbies">
+                  <li>Reading</li>
+                  <li>Designing interfaces</li>
+                  <li>Watching football</li>
+                </ul>
+              </section>
+
+              <section class="profile-card__section" aria-labelledby="dislikes-heading">
+                <h2 id="dislikes-heading" class="profile-card__section-title">
+                  Dislikes
+                </h2>
+                <ul class="profile-card__list" data-testid="test-user-dislikes">
+                  <li>Poor accessibility</li>
+                  <li>Messy layouts</li>
+                  <li>Slow-loading pages</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
