@@ -29,11 +29,7 @@ body {
   padding: 1.5rem;
   display: grid;
   gap: 1.1rem;
-}
-
-.todo-card__top {
-  display: grid;
-  gap: 1rem;
+  transition: all 0.2s ease;
 }
 
 .todo-card__check-row {
@@ -47,29 +43,25 @@ body {
   height: 16px;
   border-radius: 4px;
   accent-color: #1a1a1a;
-  flex-shrink: 0;
   cursor: pointer;
 }
 
 .todo-card__checkbox-label {
   font-size: 0.82rem;
   color: #999;
-  letter-spacing: 0.01em;
   cursor: pointer;
 }
 
 .todo-card__title {
   font-size: 1.1rem;
   font-weight: 500;
-  line-height: 1.4;
   color: #111;
-  letter-spacing: -0.01em;
 }
 
 .todo-card__description {
   font-size: 0.88rem;
   color: #666;
-  line-height: 1.65;
+  line-height: 1.6;
   margin-top: 5px;
 }
 
@@ -77,6 +69,7 @@ body {
   display: flex;
   gap: 7px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .badge {
@@ -84,20 +77,46 @@ body {
   font-weight: 500;
   padding: 4px 10px;
   border-radius: 6px;
-  letter-spacing: 0.02em;
 }
 
 .badge--priority {
   background: #fef3e2;
   color: #92500a;
 }
+
 .badge--status {
   background: #ede9fe;
   color: #5b21b6;
 }
+
 .badge--done {
   background: #dcfce7;
   color: #166534;
+}
+
+.badge--pending {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.priority-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.priority-high { background: #dc2626; }
+.priority-medium { background: #d97706; }
+.priority-low { background: #16a34a; }
+
+[data-testid="test-todo-status-control"] {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border: 1px solid #e8e8e4;
+  border-radius: 8px;
+  background: #fafaf8;
+  color: #333;
 }
 
 .todo-card__dates {
@@ -119,6 +138,20 @@ body {
   font-weight: 500;
 }
 
+.overdue-indicator {
+  color: #b91c1c;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.todo-card.overdue {
+  border-color: #fecaca;
+}
+
+.todo-card.overdue .todo-card__time-remaining {
+  color: #b91c1c;
+}
+
 .todo-card__tags {
   display: flex;
   gap: 6px;
@@ -135,22 +168,38 @@ body {
   border-radius: 6px;
 }
 
+.collapsible {
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.collapsible.expanded {
+  max-height: none;
+}
+
+.expand-toggle {
+  font-size: 0.8rem;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}
+
 .todo-card__actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .action-button {
   font-size: 0.85rem;
-  font-family: inherit;
   padding: 8px 16px;
   border-radius: 8px;
   border: 1px solid #e8e8e4;
   background: #fafaf8;
   color: #333;
   cursor: pointer;
-  font-weight: 500;
-  transition: background 0.15s;
+  transition: 0.15s;
 }
 
 .action-button:hover {
@@ -167,12 +216,92 @@ body {
   background: #fee2e2;
 }
 
-.action-button:focus-visible {
-  outline: 2px solid #1a1a1a;
-  outline-offset: 3px;
+.edit-form {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fafaf8;
+}
+
+.edit-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #e8e8e4;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.edit-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.edit-actions button {
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #e8e8e4;
+  background: #fafaf8;
+  cursor: pointer;
+}
+
+.edit-actions button:hover {
+  background: #f0f0ec;
+}
+
+.todo-card.is-done {
+  background: #fcfcfa;
 }
 
 .todo-card.is-done .todo-card__title {
   text-decoration: line-through;
   color: #aaa;
+}
+
+.todo-card.is-done .todo-card__description,
+.todo-card.is-done .todo-card__due-date {
+  color: #9a9a9a;
+}
+
+/* Focus states */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .todo-card {
+    width: 100%;
+    padding: 1.2rem;
+  }
+
+  .edit-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .action-button,
+  .edit-actions button,
+  [data-testid="test-todo-status-control"] {
+    width: 100%;
+  }
 }
